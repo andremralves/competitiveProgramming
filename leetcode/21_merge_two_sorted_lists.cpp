@@ -12,31 +12,47 @@ struct ListNode {
 };
 
 ListNode *solve(ListNode *a, ListNode *b) {
-    ListNode *head = new ListNode();
-    ListNode *tail = head;
+    ListNode *head = nullptr;
+    ListNode *tail = nullptr;
 
     while (a != nullptr || b != nullptr)
     {
-
-        if(a->val < b->val) {
-            tail->val = a->val;
-            tail->next = new ListNode(b->val);
+        if(head == nullptr) {
+            head = new ListNode();
+            if(a == nullptr) {
+                head->val = b->val; 
+                b = b->next;
+                tail = head;
+            } else if(b == nullptr) {
+                head->val = a->val; 
+                a = a->next;
+                tail = head;
+            } else if(a->val < b->val) {
+                head->val = a->val; 
+                a = a->next;
+                tail = head;
+            } else {
+                head->val = b->val; 
+                b = b->next;
+                tail = head;
+            }
         } else {
-            tail->val = b->val;
-            tail->next = new ListNode(a->val);
+            tail->next = new ListNode();
+            tail = tail->next;
+            if(a == nullptr) {
+                tail->val = b->val; 
+                b = b->next;
+            } else if(b == nullptr) {
+                tail->val = a->val; 
+                a = a->next;
+            } else if(a->val < b->val) {
+                tail->val = a->val; 
+                a = a->next;
+            } else {
+                tail->val = b->val; 
+                b = b->next;
+            }
         }
-        a = a->next;
-        b = b->next;
-        if(a != nullptr and b != nullptr) {
-            tail->next->next = new ListNode();
-        }
-        tail = tail->next->next;
-    }
-
-    if(a == nullptr) {
-        tail = b;
-    } else {
-        tail = a;
     }
 
     return head;
