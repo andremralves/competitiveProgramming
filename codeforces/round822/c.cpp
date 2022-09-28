@@ -8,11 +8,14 @@ void solve() {
     cin>>n;
     cin>>s;
     bool visited[n+1];
-    int ans = 0;
+    for (int i = 0; i < n+1; i++) {
+        visited[i] = false;
+    }
+    long long ans = 0;
     for (int i = 1; i <= n; i++) {
         for (int j = i; j <= n; j+=i) {
             if(s[j-1] == '1') break;
-            if(visited[j] == true) continue;
+            if(visited[j]) continue;
             visited[j] = true;
             ans+=i;
         }
