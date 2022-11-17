@@ -1,10 +1,19 @@
-import subprocess
+import datetime
 from os.path import exists
 
 files = ["a.cpp", "b.cpp", "c.cpp", "d.cpp", "e.cpp", "f.cpp"]
-template ="/home/andre/repos/competitiveProgramming/template.cpp"
+template = open("/home/andre/repos/competitiveProgramming/template.cpp", "r")
+topMsg = """/**
+ *    author: mralves 
+ *    created: {0}       
+**/
+""".format(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+
 for fileName in files:
     if(not exists("./" + fileName)):
-        subprocess.run(["touch", fileName])
-        subprocess.run(["cp", template, fileName])
-subprocess.run(["touch", "in.txt"])
+        newFile = open(fileName, "w")
+        newFile.write(topMsg+template.read())
+        newFile.close()
+open("in.txt", "w").close()
+
+template.close()
