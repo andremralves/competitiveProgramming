@@ -2,7 +2,8 @@ import datetime
 from os.path import exists
 
 files = ["a.cpp", "b.cpp", "c.cpp", "d.cpp", "e.cpp", "f.cpp"]
-template = open("/home/andre/repos/competitiveProgramming/template.cpp", "r")
+template = open("/home/andre/repos/competitiveProgramming/template.cpp",
+                "r").read()
 topMsg = """/**
  *    author: mralves 
  *    created: {0}       
@@ -11,9 +12,10 @@ topMsg = """/**
 
 for fileName in files:
     if(not exists("./" + fileName)):
+        #print(fileName)
         newFile = open(fileName, "w")
-        newFile.write(topMsg+template.read())
+        #print(template.read())
+        newFile.write(topMsg+template)
+        print(newFile)
         newFile.close()
 open("in.txt", "w").close()
-
-template.close()
