@@ -12,10 +12,7 @@ topMsg = """/**
 
 for fileName in files:
     if(not exists("./" + fileName)):
-        #print(fileName)
         newFile = open(fileName, "w")
-        #print(template.read())
         newFile.write(topMsg+template)
-        print(newFile)
         newFile.close()
 open("in.txt", "w").close()
