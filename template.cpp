@@ -7,7 +7,7 @@ void solve() {
 
 }
 
-int main (int argc, char *argv[])
+int main ()
 {
     int t;
     cin>>t;
