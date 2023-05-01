@@ -26,5 +26,18 @@ int main() {
             }
         }
     }
+    
+    // showing the shortest path
+    int u;
+    if(!used[u]) {
+        cout<<"No path!\n";
+    } else {
+        vector<int> path;
+        for(int v=u; v != -1; v=p[v])
+            path.push_back(v);
+        reverse(path.begin(), path.end());
+        for(int v: path)
+            cout<<v<<" ";
+    }
     return 0;
 }
