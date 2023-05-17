@@ -3,6 +3,7 @@ import os
 rootdir = '/home/andre/repos/competitiveProgramming'
 
 letters = "cdefghijklmnopqrstuvwxyz"
+template_size = os.path.getsize(rootdir + "/template.cpp")
 files_to_search = set(map(lambda letter: letter + ".cpp", letters))
 files_to_remove = []
 
@@ -18,7 +19,7 @@ for subdir, dirs, files in os.walk(rootdir):
         file_path = os.path.join(subdir, file)
         file_size = os.path.getsize(file_path)
 
-        if file_size == 431:
+        if file_size == template_size:
             files_to_remove.append(file_path)
 
 if len(files_to_remove) == 0:
