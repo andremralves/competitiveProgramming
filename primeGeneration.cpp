@@ -2,23 +2,30 @@
 
 using namespace std;
 
-const int MAX = 1000;
 using ll = long long;
+const ll MAX = 1e6;
 
-int main() {
-    // Sieve of Eratosthenes
+// Sieve of Eratosthenes
+// O(log(n))
+vector<ll> sieve(ll MAX) {
     vector<bool> prime(MAX + 1, true);
-    vector<int> p;
-    for(int i=2; i<=MAX; i++) {
+    vector<ll> plist;
+    for(ll i=2; i<=MAX; i++) {
         if(prime[i]) {
-            p.push_back(i);
-            for(int j=i*2; j<=MAX; j+=i) {
+            plist.push_back(i);
+            for(ll j=i*i; j<=MAX; j+=i) {
                 prime[j] = false;
             }
         }
     }
+    return plist;
+}
 
-    for(auto x: p) {
+int main() {
+
+    vector<ll> plist = sieve(MAX);
+
+    for(auto x: plist) {
         cout<<x<<" ";
     }
     cout<<"\n";
