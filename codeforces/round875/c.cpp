@@ -20,7 +20,7 @@ void solve() {
     cin>>n;
     vector<vector<ii>> adj(n+1);
     vector<int> id(n), dp(n);
-    id[0] = -1;
+    id[0] = n;
     for(int i=0; i<n-1; i++) {
         int u, v;
         cin>>u>>v;
