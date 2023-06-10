@@ -27,6 +27,7 @@ void solve() {
         }
     }
 
+    f[0][0] = 0;
     for(int i=0; i<n; i++) {
         ll cost;
         string s;
@@ -36,7 +37,6 @@ void solve() {
             mask += 1 << (c-'a');
         }
         ps[i] = {cost, mask};
-        f[0][0] = 0;
         for(ll mask = 0; mask < 8; mask++) {
             f[i+1][mask] = min(f[i+1][mask], f[i][mask]);
             f[i+1][mask | ps[i].second] = min(f[i+1][mask | ps[i].second], ps[i].first + f[i][mask]);
