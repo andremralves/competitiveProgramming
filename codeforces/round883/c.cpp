@@ -17,13 +17,14 @@ vector<ii> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, 
 
 typedef struct {
 	int i;
-	int time;
+	ll time;
 	int ac;
 }item;
 
 bool cmp (item i,item j) { 
 	if(i.ac != j.ac) return i.ac>j.ac;
-	return i.time<j.time; 
+	if(i.time != j.time) return i.time<j.time; 
+	return i.i < j.i;
 }
 
 void solve() {
@@ -36,8 +37,8 @@ void solve() {
 			cin>>a[j];
 		}
 		sort(all(a));
-		int sum = 0;
-		int pen = 0;
+		ll sum = 0;
+		ll pen = 0;
 		int j;
 		for(j=0; j<m; j++) {
 			if(sum+a[j] <= h) {
