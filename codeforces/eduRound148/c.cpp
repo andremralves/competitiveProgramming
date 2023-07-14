@@ -16,11 +16,8 @@ void solve() {
     int n;
     cin>>n;
     vector<int> a(n);
-    int ctr = 0;
     for(int i=0; i<n; i++) {
         cin>>a[i];
-        if(i > 0)
-            ctr += abs(a[i]-a[i-1]);
     }
 
     n = unique(a.begin(), a.end()) - a.begin();

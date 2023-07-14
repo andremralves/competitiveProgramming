@@ -3,7 +3,7 @@ import os
 rootdir = '/home/andre/repos/competitiveProgramming'
 
 letters = "cdefghijklmnopqrstuvwxyz"
-template_size = os.path.getsize(rootdir + "/template.cpp")
+template_size = os.path.getsize(rootdir + "/template.cpp") + 73
 files_to_search = set(map(lambda letter: letter + ".cpp", letters))
 files_to_remove = []
 
