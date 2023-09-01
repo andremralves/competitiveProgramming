@@ -2,30 +2,38 @@
 
 using namespace std;
 
+template<class T, class F>
+T first_true(T l, T r,  F&& f) {
+    l--, r++;
+    while(r - l > 1) {
+        T mid = midpoint(l, r);
+        if(f(mid)) {
+            l = mid; 
+        } else {
+            r = mid;
+        }
+   }
+    return r;
+}
+
+
+
 int main() {
 
-    vector<int> a{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int x = 1;
+    vector<int> a(2);
+    iota(a.begin(), a.end(), 1);
 
-    //binary search implementation
-    // using index = 1
-        int l = 1, r = 10;
+    auto f = [&](int i) {
+        return a[i] < x;
+    };
 
-    int target = 3;
-    int pos = 0;
-    while (l < r-1) {
-        int m = (r+l)/2;
-        cout<<m<<"\n";
-        if(a[m] == target) {
-            pos = m;
-            break;
-        }
-        if(a[m] < target)
-            l = m;
-        else
-            r = m;
-    }
+    auto ans = first_true(0, (int)a.size()-1, f);
+    cout<<a[ans]<<"\n";
 
-    cout<<pos<<"\n";
-    return 0;
+
+    cout<<(-10+5)/2<<"\n";
+    cout<<-10+(5-(-10))/2<<"\n";
+    cout<<midpoint(-10, 5)<<"\n";
 }
 
