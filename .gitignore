@@ -1,5 +1,6 @@
 in
 out
 *.out
+*.txt
 in.txt
 test*
