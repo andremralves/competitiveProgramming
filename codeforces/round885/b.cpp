@@ -1,0 +1,58 @@
+/**
+ *    author: mralves 
+ *    created: 10-08-2023 01:09:47       
+**/
+#include <bits/stdc++.h>
+
+#define pb(x) push_back(x)
+#define all(x) x.begin(),x.end()
+
+using namespace std;
+using ll = int64_t;
+using ii = pair<int, int>;
+
+ll ceil(ll a, ll b) {return a % b == 0 ? a / b : a / b + 1;}
+vector<ii> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+vector<ii> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+
+void solve() {
+    int n, k;
+    cin>>n>>k;
+    vector<int> a(n);
+    for(int i=0; i<n; i++) {
+        cin>>a[i];
+    }
+
+    vector<int> last(k+1);
+    vector<priority_queue<int, vector<int>, less<int>>> dis(k+1);
+    for(int i=0; i<n; i++) {
+        dis[a[i]].push(i-last[a[i]]);
+        last[a[i]] = i+1;
+    }
+
+    for(int i=1; i<k+1; i++) {
+        dis[i].push(n-last[i]);
+    }
+
+    int ans = 2e5;
+    for(int i=1; i<=k; i++) {
+        int fis = dis[i].top(); dis[i].pop();
+        int sec = dis[i].top(); dis[i].pop();
+
+        ans = min(ans, max(fis/2, sec));
+    }
+
+    cout<<ans<<"\n";
+
+}
+
+int main ()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int t = 1;
+    cin>>t;
+    while (t--) solve();
+    return 0;
+}

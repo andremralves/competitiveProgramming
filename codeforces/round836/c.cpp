@@ -8,27 +8,38 @@ using namespace std;
 using ll = int64_t;
 
 void solve() {
-    ll n, x;
-    cin>>n>>x;
-    if(n%x != 0) {
-        cout<<-1<<"\n";
-        return;
+  int N, X;
+  cin>>N>>X;
+  if(X != 1 and N%X == 0) {
+    vector<int> divs;
+    for(int i=1; i*i<=N; i++) {
+      if(N%i==0) {
+        if(i%X == 0) divs.push_back(i);
+        if(N/i != i and (N/i)%X==0) divs.push_back(N/i);
+      }
     }
-    vector<ll> ans(n+1);
-    iota(ans.begin(), ans.end(), 0);
-    ans[1] = x;
-    ans[n] = 1;
-    while(x<n)
-        for (int i = x*2; i <= n; i+=x) {
-            if(n%i == 0) {
-                ans[x] = i;
-                x = i;
-                break;
-            }
-        }
-    for (int i = 1; i <= n; i++) {
-        cout<<ans[i]<<(i == n ? "\n":" ");
+    sort(divs.begin(), divs.end());
+    for(auto d:divs) {
+      cout<<d<<" ";
     }
+    cout<<"\n";
+    int cur = 1;
+    cout<<X<<" ";
+    for(int i=2; i<N; i++) {
+      if(find(divs.begin(), divs.end(), i) != divs.end()) {
+        if(divs[cur]%i == 0)
+          cout<<divs[cur]<<" ";
+        else
+          cout<<i<<" ";
+        cur++;
+      }
+      else cout<<i<<" ";
+    }
+    cout<<"1\n";
+  } else {
+    cout<<"-1\n";
+  }
+
 }
 
 int main (int argc, char *argv[])

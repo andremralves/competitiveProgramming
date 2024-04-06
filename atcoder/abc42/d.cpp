@@ -18,7 +18,7 @@ long long binpow(long long A, long long B) {
 }
 
 const int MAXN = 2e5+10;
-ll fact[MAXN], inv[MAXN];
+ll fact[MAXN], inv[MAXN], factinv[MOD];
 
 ll binom(int N, int R) {
   ll comp = fact[N]*inv[R]%MOD;
@@ -35,6 +35,15 @@ int main() {
   for(int i=1; i<=W+H; i++) {
     fact[i] = i*fact[i-1]%MOD;
   }
+
+  // m = k*a+r
+  // inv[a] = -k*inv[r]
+  // inverse of factorial[i]
+  inv[0] = 1;
+  for(int i=1; i<=W+N; i++) {
+    inv[i] = int[i-1]
+  }
+
   for(int i=0; i<=W+H; i++) {
     inv[i] = binpow(fact[i], MOD-2);
   }

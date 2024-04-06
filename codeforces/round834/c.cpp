@@ -8,20 +8,37 @@ using namespace std;
 using ll = int64_t;
 
 void solve() {
-    ll l,r,x, a, b;
-    cin>>l>>r>>x>>a>>b;
+  int l, r, x, a, b;
+  cin>>l>>r>>x;
+  cin>>a>>b;
 
-    if(a == b) {
-        cout<<"0\n";
-    } else if(a-x < l and a+x > r) {
-        cout<<"-1\n";
-    } else if(a+x <= b or a-x >= b) {
-        cout<<"1\n";
-    } else if(abs(b-r) > x or abs(b-l) > x){
-        cout<<"2\n";
-    } else if(abs(a-r) ) {
-        cout<<"3\n";
+  if(a == b) {
+    cout<<"0\n";
+    return;
+  }
+
+  if(abs(a-b) >= x) {
+    cout<<"1\n";
+  } else {
+    int mn = 4;
+    if(abs(a-r) >= x) {
+      if(abs(r-b) >= x) {
+        mn = min(2, mn);
+      } else if(abs(l-b) >= x){
+        mn = min(3, mn);
+      }
     }
+
+    if(abs(a-l) >= x) {
+      if(abs(l-b) >= x) {
+        mn = min(2, mn);
+      } else if(abs(r-b) >= x){
+        mn = min(3, mn);
+      }
+    }
+    if(mn == 4) mn = -1;
+    cout<<mn<<"\n";
+  }
 }
 
 int main (int argc, char *argv[])

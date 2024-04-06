@@ -17,9 +17,10 @@ def generateFiles(n = 5):
         fileName = alpha[i]+".cpp"
         if(not exists("./" + fileName)):
             newFile = open(fileName, "w")
-            newFile.write(topMsg+template)
+            # no topMsg 
+            newFile.write(template)
             newFile.close()
-    open("in.txt", "w").close()
+    open("in", "w").close()
 
 if __name__ == "__main__":
     if(len(sys.argv) == 2):

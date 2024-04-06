@@ -1,4 +1,4 @@
-int MAXN = 100005;
+const int MAXN = 100005;
 int BIT[MAXN], N;
 void update(int i, int v) {
   for(++i;i<=N;i+=i&-i) {
@@ -6,7 +6,7 @@ void update(int i, int v) {
   }
 }
 int query(int i) {
-  int res = 0; i++;
+  int res = 0;
   for(++i; i>=1; i-=i&-i) {
     res += BIT[i];
   }
