@@ -33,4 +33,3 @@ template<class T> struct SegTree { // cmb(ID,b) = b
 	/// 	return first_at_least(lo,val,2*ind+1,m+1,r);
 	/// }
 };
-

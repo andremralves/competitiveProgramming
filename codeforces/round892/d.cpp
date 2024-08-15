@@ -1,19 +1,48 @@
-/**
- *    author: mralves 
- *    created: 12-08-2023 11:35:10       
-**/
-#include <bits/stdc++.h>
-
-#define pb(x) push_back(x)
-#define all(x) x.begin(),x.end()
-
+#include "bits/stdc++.h"
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4")
+ 
 using namespace std;
-using ll = int64_t;
-using ii = pair<int, int>;
+ 
+typedef long long ll;
+typedef long double ld;
+typedef complex<ld> cd;
+ 
+typedef pair<int, int> pi;
+typedef pair<ll,ll> pl;
+typedef pair<ld,ld> pd;
+ 
+typedef vector<int> vi;
+typedef vector<ld> vd;
+typedef vector<ll> vl;
+typedef vector<pi> vpi;
+typedef vector<pl> vpl;
+typedef vector<cd> vcd;
 
-ll ceil(ll a, ll b) {return a % b == 0 ? a / b : a / b + 1;}
-vector<ii> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-vector<ii> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+template<class T> using pq = priority_queue<T>;
+template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+ 
+#define FOR(i, a, b) for (int i=a; i<(b); i++)
+#define F0R(i, a) for (int i=0; i<(a); i++)
+#define FORd(i,a,b) for (int i = (b)-1; i >= a; i--)
+#define F0Rd(i,a) for (int i = (a)-1; i >= 0; i--)
+#define trav(a,x) for (auto& a : x)
+#define uid(a, b) uniform_int_distribution<int>(a, b)(rng)
+ 
+#define sz(x) (int)(x).size()
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+#define lb lower_bound
+#define ub upper_bound
+#define all(x) x.begin(), x.end()
+#define ins insert
+
+template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0; }
+template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }
+ 
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void __print(int x) {cerr << x;}
 void __print(long x) {cerr << x;}
@@ -42,76 +71,43 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define dbg(x...)
 #endif
 
+
+const int MOD = 1000000007;
+const char nl = '\n';
+const int MX = 100001; 
+
 void solve() {
-    int n;
-    cin>>n;
+  int N; cin>>N;
+  int L[N], R[N], A[N], B[N];
+  vi ps;
+  F0R(i, N) {
+    cin>>L[i]>>R[i]>>A[i]>>B[i];
+    ps.pb(L[i]); ps.pb(R[i]); ps.pb(A[i]); ps.pb(B[i]);
+  }
+  sort(all(ps));
+  ps.resize(unique(all(ps))-ps.begin());
 
-    vector<int> ps;
-    vector<int> L(n),R(n),A(n),B(n);
-    for(int i=0; i<n; i++) {
-        cin>>L[i]>>R[i]>>A[i]>>B[i];
-        ps.push_back(L[i]);
-        ps.push_back(R[i]);
-        ps.push_back(A[i]);
-        ps.push_back(B[i]);
-    }
+  F0R(i, N) {
+    L[i] = lb(all(ps), L[i])-ps.begin();
+    R[i] = lb(all(ps), R[i])-ps.begin();
+    A[i] = lb(all(ps), A[i])-ps.begin();
+    B[i] = lb(all(ps), B[i])-ps.begin();
+  }
 
-    int q;cin>>q;
-    vector<int> Q(q);
-    for(int i=0; i<q; i++) {
-        cin>>Q[i];
-        ps.push_back(Q[i]);
-    }
-    sort(all(ps));
-    ps.resize(unique(all(ps))-ps.begin());
-    for(int i=0; i<n; i++) {
-        L[i] = lower_bound(all(ps), L[i])-ps.begin();
-        R[i] = lower_bound(all(ps), R[i])-ps.begin();
-        A[i] = lower_bound(all(ps), A[i])-ps.begin();
-        B[i] = lower_bound(all(ps), B[i])-ps.begin();
-    }
+  ll ans[sz(ps)+1];
 
-    for(int i=0; i<q; i++) {
-        Q[i] = lower_bound(all(ps), Q[i])-ps.begin();
-    }
 
-    vector<ll> ans(ps.size()+1);
-    for(int i=0; i<=(int)ps.size(); i++) {
-        ans[i] = i;
-    }
-    vector<pair<int, ii>> tps;
-    for(int i=0; i<n; i++) {
-        tps.push_back({R[i], {B[i], L[i]}});
-    }
-    sort(all(tps)); reverse(all(tps));
+}
+ 
+int main() {
+  ios_base::sync_with_stdio(0); cin.tie(0);
 
-    priority_queue<ii> pq;
-    int p = 0;
-    for(int i=ps.size()-1; i>=0; i--) {
-        while(p < (int)tps.size() and tps[p].first == i) {
-            pq.push({tps[p].second.first, p}); p++;
-        }
+  int T = 1;
+  cin >> T;
+  while(T--) {
+    solve();
+  }
 
-        while(!pq.empty() and tps[pq.top().second].second.second > i) pq.pop();
-        if(!pq.empty()) {
-            int v = pq.top().first;
-            ans[i] = max(ans[i], ans[v]);
-        }
-    }
-
-    for(int i=0; i<q; i++) {
-        cout<<ps[ans[Q[i]]]<<" ";
-    }
-    cout<<"\n";
+  return 0;
 }
 
-int main ()
-{
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    int t = 1;
-    cin>>t;
-    while (t--) solve();
-    return 0;
-}
