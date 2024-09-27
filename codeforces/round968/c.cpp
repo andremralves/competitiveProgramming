@@ -77,14 +77,53 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+    int N; cin>>N;
+    string S; cin>>S;
+
+    vi cnt(26);
+    F0R(i, N) {
+        cnt[S[i]-'a']++;
+    }
+
+    string ans;
+    while(sz(ans) < sz(S)) {
+        bool found = 0;
+        F0R(i, 26) {
+            if(cnt[i]) {
+                if(sz(ans) == 0) {
+                    ans += i+'a';
+                    found = 1;
+                    cnt[i]--;
+                } else if(ans.back() != i+'a') {
+                    ans += i+'a';
+                    found = 1;
+                    cnt[i]--;
+                }
+            }
+        }
+        if(!found)
+            F0R(i, 26) {
+                if(cnt[i]) {
+                    ans += 'a'+i;
+                    cnt[i]--;
+                }
+            }
+    }
+    cout<<ans<<nl;
 
 }
+
+// abc - 1
+// aab - 2
+// aacaa
+// 
+// a*b
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

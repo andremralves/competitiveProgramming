@@ -71,20 +71,58 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define dbg(x...)
 #endif
 
-
 const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N; cin>>N;
+  string S; cin>>S;
 
+  int ans = N;
+  F0R(i, 26) {
+    F0R(j, 26) {
+      char a = i+'a';
+      char b = j+'a';
+      vi cnt1(N+1), cnt2(N+1);
+      vi cnt3(N+1), cnt4(N+1);
+      F0R(k, N) {
+        cnt1[k+1] = cnt1[k];
+        cnt2[k+1] = cnt2[k];
+        cnt3[k+1] = cnt3[k];
+        cnt4[k+1] = cnt4[k];
+        if(k%2 == 0 && S[k] != a) {
+          cnt1[k+1]++;
+        }
+        if(k%2 == 0 && S[k] != b) {
+          cnt3[k+1]++;
+        }
+        if(k%2 && S[k] != b) {
+          cnt2[k+1]++;
+        }
+        if(k%2 && S[k] != a) {
+          cnt4[k+1]++;
+        }
+      }
+      if(N%2 == 0) {
+        ckmin(ans, cnt1[N-1]+cnt2[N-1]);
+      } else {
+        F0R(i, N) {
+          int cur = cnt1[i]+cnt2[i]+(cnt3[min(N, i+2)]-cnt3[i+1])+
+                    (cnt4[min(N, i+2)]-cnt4[i+1]);
+          ckmin(ans, cur+1);
+        }
+      }
+    }
+  }
+  cout<<ans<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

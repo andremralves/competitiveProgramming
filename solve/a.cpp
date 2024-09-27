@@ -1,6 +1,6 @@
 #include "bits/stdc++.h"
 #pragma GCC optimize ("O3")
-#pragma GCC target ("sse4")
+//#pragma GCC target ("sse4")
  
 using namespace std;
  
@@ -71,43 +71,45 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define dbg(x...)
 #endif
 
-
 const int MOD = 998244353;
 const char nl = '\n';
-const int MX = 200001; 
+const int MX = 2005; 
 
 void solve() {
-  int N, M; cin>>N;
-  vi A(N); F0R(i, N) cin>>A[i];
-  cin>>M;
-  vi B(M); F0R(i, M) cin>>B[i];
-
-  sort(all(A));
-  sort(all(B));
-  vi used(M);
-  int ans = 0;
+  int N, C; cin>>N>>C;
+  vi A(N);
+  vector<vi> G(N);
   F0R(i, N) {
-    F0R(j, M) {
-      if(!used[j] && abs(A[i]-B[j])<=1) {
-        used[j] = 1;
-        ans++;
-        break;
-      }
-    }
+    cin>>A[i];
+  }
+  F0R(i, N-1) {
+    int u, v;
+    cin>>u>>v;
+    u--, v--;
+    G[u].pb(v);
+    G[v].pb(u);
+  }
+
+  set<pl> st;
+  map<int, ll> MP;
+  F0R(i, N) {
+    st.insert({A[i]-1ll*C*sz(G[i]), i});
+    MP[i] = A[i]-1ll*C*sz(G[i]);
+  }
+
+  ll ans = 0;
+  while(!st.empty()) {
   }
   cout<<ans<<nl;
 }
-
-// 25 1 24 2 13
-// 23 
-// 7 6 2
-
-
+ 
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
+
   int t = 1;
-  //cin >> t;
-  while(t--) {
+  cin>>t;
+  F0R(i, t) {
+    //cout<<"Case #"<<i+1<<": ";
     solve();
   }
 

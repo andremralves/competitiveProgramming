@@ -74,17 +74,101 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 
 const int MOD = 1000000007;
 const char nl = '\n';
-const int MX = 100001; 
+const int MX = 200001; 
+
+pair<int, int> calcMex(vi& A) {
+    set<int> st;
+    F0R(i, sz(A)) {
+        st.insert(A[i]);
+    }
+    int i = 0;
+    int mex = 0, mex2 = 0;
+    trav(a, st) {
+        if(i != a) {
+            break;
+        } else {
+            mex++;
+            i++;
+        }
+    }
+    i = 0;
+    st.insert(mex);
+    trav(a, st) {
+        if(i != a) {
+            break;
+        } else {
+            mex2++;
+            i++;
+        }
+    }
+    return {mex, mex2};
+}
+
+map<int, vi> G;
+map<int, int> memo;
+vi mexs;
+int used[MX];
+int dfs(int i) {
+    dbg(i);
+    if(memo.count(i)) return memo[i];
+    int res = i;
+    trav(j, G[i]) {
+        if(!used[j]){
+            used[j] = 1;
+            ckmax(res, dfs(j));
+        }
+    }
+    trav(j, mexs) {
+        if(!used[j]) {
+            used[j] = 1;
+            ckmax(res, dfs(j));
+        }
+    }
+    return memo[i] = res;
+}
 
 void solve() {
+    int N, M; cin>>N>>M;
+    memo.clear();
+    mexs.clear();
+    memset(used, 0, MX*sizeof(int));
+    G.clear();
+    vector<vi> grid(N);
+    int best = 0;
+    F0R(i, N) {
+        int x; cin>>x;
+        F0R(j, x) {
+            int a; cin>>a;
+            grid[i].pb(a);
+        }
+        auto [mex, mex2] = calcMex(grid[i]);
+        mexs.pb(mex);
+        G[mex].pb(mex2);
+        ckmax(best, mex);
+    }
 
+    ll ans = 0;
+    int lim = min(best+1, M);
+    trav(a, G) {
+        dbg(a.f, a.s);
+    }
+    F0R(i, lim+1) {
+        int res = dfs(i);
+        dbg(best, res);
+        ans += max(best, res);
+    }
+
+    dbg(M, lim, best);
+    dbg(M*(M+1)/2, lim*(lim+1)/2);
+    ans += 1ll*M*(M+1)/2-1ll*lim*(lim+1)/2;
+    cout<<ans<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

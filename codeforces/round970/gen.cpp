@@ -77,7 +77,13 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+  int N; N = 2e5+1;
+  cout<<1<<nl;
+  cout<<N<<nl;
+  F0R(i, N) {
+    cout<<(int)1e9<<" ";
+  }
+  cout<<nl;
 }
  
 int main() {
@@ -91,4 +97,5 @@ int main() {
 
   return 0;
 }
+
 

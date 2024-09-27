@@ -77,14 +77,53 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, M; cin>>N>>M;
+  string ss = "narek";
+  // score, last
+  vector<vpi> A(5, vpi(N));
+  F0R(i, N) {
+    string S; cin>>S;
+    F0R(j, sz(ss)) {
+      int cnt = 0;
+      int used = 0;
+      int cur = j;
+      F0R(k, M) {
+        if(ss.find(S[k]) != string::npos) cnt++;
+        if(S[k] == ss[cur]) {
+          used++;
+          cur++, cur%= 5;
+        }
+      }
+      A[j][i] = {2*used-cnt-cur, cur};
+      //dbg(cnt, used);
+      dbg(j, i, A[j][i]);
+    }
+  }
 
+  int dp[N+1][5]; F0R(i, N+1) F0R(j, 5) dp[i][j] = -MOD;
+  dp[0][0] = 0;
+
+  FOR(i, 1, N+1) {
+    F0R(j, i) {
+      F0R(k, 5) {
+        auto [score, last] = A[k][i-1];
+        ckmax(dp[i][last], dp[j][k]+score);
+      }
+    }
+  }
+
+  int ans = 0;
+  F0R(i, 5) {
+    ckmax(ans, dp[N][i]-i);
+  }
+  cout<<ans<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,6 +77,11 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, M; cin>>N>>M;
+
+  F0R(i, N) {
+    cin>>A[i];
+  }
 
 }
  
@@ -84,7 +89,7 @@ int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,14 +77,43 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, D, K; cin>>N>>D>>K;
+  vi jobs(N);
+  vi end(N+1);
+  while(K--) {
+    int l, r;
+    cin>>l>>r; l--, r--;
+    jobs[l]++;
+    end[r]++;
+  }
 
+  int cnt = 0;
+  F0R(i, D) {
+    if(jobs[i] == 1) cnt++;
+  }
+  int mx = cnt, mn = cnt;
+  int ans1 = 0, ans2 = 0;
+  int done = 0;
+  FOR(i, D, N) {
+    cnt += jobs[i];
+    done += end[i-D];
+    if(cnt-done > mx) {
+      ans1 = i-D+1;
+      mx = cnt-done;
+    }
+    if(cnt-done < mn) {
+      ans2 = i-D+1;
+      mn = cnt-done;
+    }
+  }
+  cout<<ans1+1<<" "<<ans2+1<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

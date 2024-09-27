@@ -77,7 +77,33 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N; cin>>N;
+  vi H(N); F0R(i, N) cin>>H[i];
 
+  int mx = H[N-1], mn = H[N-1];
+  vi pre(N+1);
+  vi dp(N), ans(N);
+  vpi keep;
+  F0Rd(i, N) {
+    while(sz(keep)) {
+      auto [h, p] = keep.back();
+      if(h >= H[i]) {
+        dp[i] = dp[p]+1;
+        ans[i] = dp[i];
+        //if(i+1 < p) {
+        //  ans[i]++;
+        //}
+        break;
+      }
+      keep.pop_back();
+    }
+    keep.pb({H[i], i});
+  }
+  F0R(i, sz(ans)-1) {
+    ans[i] = ans[i+1]+1;
+  }
+  trav(a, ans) cout<<a<<" ";
+  cout<<nl;
 }
  
 int main() {

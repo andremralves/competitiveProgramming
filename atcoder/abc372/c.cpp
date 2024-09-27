@@ -77,7 +77,59 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, Q;
+  cin>>N>>Q;
+  string S; cin>>S;
+  S += "X";
+  S += "X";
+  S += "X";
+  vi used(N);
+  int ans = 0;
+  F0R(i, N-2) {
+    if(S.substr(i, 3) == "ABC") {
+      used[i] = 1;
+      used[i+1] = 1;
+      used[i+2] = 1;
+      ans++;
+    }
+  }
 
+  F0R(t, Q) {
+    int X; char C;
+    cin>>X>>C;
+    X--;
+
+    if(S[X] == C) {
+      cout<<ans<<nl;
+      continue;
+    }
+
+    if(used[X] == 1) {
+      FOR(i,-2, 1) {
+        if(X+i < 0) continue;
+        if(S.substr(X+i, 3) == "ABC") {
+          used[X+i] = 0;
+          used[X+i+1] = 0;
+          used[X+i+2] = 0;
+          ans--;
+          break;
+        }
+      }
+    }
+    S[X] = C;
+
+    FOR(i,-2, 1) {
+      if(X+i < 0) continue;
+      if(S.substr(X+i, 3) == "ABC") {
+        used[X+i] = 1;
+        used[X+i+1] = 1;
+        used[X+i+2] = 1;
+        ans++;
+        break;
+      }
+    }
+    cout<<ans<<nl;
+  }
 }
  
 int main() {

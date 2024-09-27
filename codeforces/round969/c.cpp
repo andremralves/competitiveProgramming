@@ -76,15 +76,61 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
-void solve() {
+int N, A, B;
 
+void solve() {
+  cin>>N>>A>>B;
+  vl C(N); F0R(i, N) cin>>C[i];
+  if(A == 1 || B == 1) {
+    cout<<0<<nl;
+    return;
+  }
+  //while(A != B) {
+  //  if(A > B) swap(A, B);
+  //  B = B-A;
+  //}
+
+  //dbg(A);
+
+  A = gcd(A, B);
+  pqg<int> que;
+  F0R(i, N) {
+    C[i] %= A;
+    que.push(C[i]);
+  }
+  sort(all(C));
+  int ans = C[N-1]-C[0];
+  int mx = C[N-1];
+  F0R(i, N-1) {
+    int cur = que.top();
+    que.pop();
+    int nxt = que.top();
+    mx = cur+A;
+    dbg(mx, nxt);
+    ckmin(ans, mx-nxt);
+  }
+  cout<<ans<<nl;
 }
+// 2 3
+// 2 3 4 5 6 7
+//
+// 7 3
+// 1 5
+// 8 5
+// 8 8
+//
+// 1 5
+// 4 5
+// 7 5
+// 7 8
+//
+
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -76,15 +76,47 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
-void solve() {
 
+int N;
+bool check(ll X, vi &A) {
+  sort(all(A));
+  ll sum = 0;
+  F0R(i, N-1) sum += A[i];
+  ll mx = A[N-1]+X;
+  sum += mx;
+  double avg = 1.0*sum/N;
+  int cnt = 0;
+  F0R(i, N-1) {
+    if(A[i] < avg/2) cnt++;
+  }
+  return cnt>N/2;
+}
+
+void solve() {
+  cin>>N;
+  vi A(N); F0R(i, N) cin>>A[i];
+
+  ll lo = -1, hi = 1e18;
+  while(lo < hi) {
+    ll mid = (hi+lo+1)/2;
+    if(check(mid, A)) {
+      hi = mid-1;
+    } else {
+      lo = mid;
+    }
+  }
+  if(lo == 1e18) {
+    cout<<-1<<nl;
+  } else {
+    cout<<lo+1<<nl;
+  }
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

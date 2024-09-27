@@ -77,14 +77,21 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+    int N; cin>>N;
+    vi A(N);F0R(i, N) cin>>A[i];
+    int ans = N+1;
+    FOR(i, 1, N+1) {
+        int X = count(all(A), i);
+        ckmin(ans, N-X);
+    }
+    cout<<ans<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,6 +77,36 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N; cin>>N;
+  string S; cin>>S;
+
+  int X = 1; 
+  while(X*X < N) {
+    X++;
+  }
+  if(X*X != N) {
+    cout<<"NO"<<nl;
+    return;
+  }
+
+  F0R(i, X) {
+    F0R(j, X) {
+      int pos = i*X+j;
+      if(i == 0 || j == 0 || i == X-1 || j == X-1) {
+        if(S[pos] != '1') {
+          cout<<"NO"<<nl;
+          return;
+        }
+      } else {
+        if(S[pos] != '0') {
+          cout<<"NO"<<nl;
+          return;
+        }
+      }
+    }
+  }
+  cout<<"YES"<<nl;
+
 
 }
  
@@ -84,7 +114,7 @@ int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

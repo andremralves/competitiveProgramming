@@ -77,14 +77,62 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+    int N, Q; cin>>N>>Q;
+    vector<string> ref = {"BG", "BR", "BY", "GR", "GY", "RY"};
+    vector<vi> C(sz(ref));
+    map<int, string> tp;
+    F0R(i, N) {
+        string S; cin>>S;
+        C[find(all(ref), S)-ref.begin()].pb(i);
+        tp[i] = S;
+    }
 
+    while(Q--) {
+        int x, y;
+        cin>>x>>y;
+        x--, y--;
+        queue<tuple<int, string, int>> q;
+        q.push({x, tp[x], 0});
+        int ans = MOD;
+        set<string> used;
+        used.insert(tp[x]);
+        while(!q.empty()) {
+            auto [pos, t, cost] = q.front();
+            q.pop();
+            {
+                int i = find(all(ref), t)-ref.begin();
+                auto it = lb(all(C[i]), y);
+                if(it != C[i].end() && *it == y) {
+                    ckmin(ans, cost+abs(y-pos));
+                }
+            }
+            dbg(pos, t, cost);
+            trav(r, ref) {
+                if(used.count(r)) continue;
+                if(t[0] == r[0] || t[0] == r[1] || t[1] == r[0] || t[1] == r[1]) {
+                    int i = find(all(ref), r)-ref.begin();
+                    int p = ub(all(C[i]), pos)-C[i].begin();
+                    
+                    if(p < sz(C[i])) {
+                        q.push({C[i][p], r, cost+abs(C[i][p]-pos)});
+                    }
+                    if(p > 0) {
+                        q.push({C[i][p-1], r, cost+abs(C[i][p-1]-pos)});
+                    }
+                    used.insert(r);
+                }
+            }
+        }
+        if(ans == MOD) ans = -1;
+        cout<<ans<<nl;
+    }
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

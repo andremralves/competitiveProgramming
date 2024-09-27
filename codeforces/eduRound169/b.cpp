@@ -77,14 +77,36 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+    int l, r, L, R;
+    cin>>l>>r>>L>>R;
 
+    vi doors(101);
+    FOR(i, 1, 101) {
+        if(i >= L && i <= R) {
+            if(i-1 >= l && i-1 <= r) {
+                doors[i-1] = 1;
+            }
+            if(i+1 >= l && i+1 <= r) {
+                doors[i] = 1;
+            }
+        }
+    }
+    cout<<max((int)count(all(doors), 1), 1)<<nl;
 }
+
+// 3 7
+// 6 7
+// 0 0 0 0 0 1 0 1 0
+//
+// 2 3
+// 2 4
+// 0 0 1 0 1 0 0
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

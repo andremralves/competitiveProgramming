@@ -76,15 +76,41 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
-void solve() {
+vi P[MX];
+int query(int a, int b) {
+    cout<<"? "<<a+1<<" "<<b+1<<endl;
+    int x; cin>>x; x--;
+    dbg(x);
+    return x;
+}
 
+void go(int l, int r) {
+    int res = query(l, r);
+    if(res == l) {
+        P[r] = l;
+        return;
+    }
+    go(res, r);
+    go(l, res);
+}
+
+
+void solve() {
+    int N; cin>>N;
+    set<int> notUsed;
+
+    cout<<"! ";
+    F0R(i, N-1) {
+        cout<<P[i+1]+1<<" "<<i+2<<" ";
+    }
+    cout<<nl;
 }
  
 int main() {
-  ios_base::sync_with_stdio(0); cin.tie(0);
+  //ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

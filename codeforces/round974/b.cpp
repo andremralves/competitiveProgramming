@@ -77,14 +77,18 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+  int N, K; cin>>N>>K;
+  int first = N-K+1;
+  int ans = K/2;
+  if(K%2 && first%2) ans++;
+  cout<<(ans%2==0?"YES":"NO")<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

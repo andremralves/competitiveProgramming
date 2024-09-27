@@ -76,15 +76,68 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
-void solve() {
+int N, M, H; 
+void djikstra(int s, vector<vpi>& G, vector<array<ll, 2>>& D, vector<char>& horse) {
+  pqg<pair<ll, pair<int, bool>>> q;
+  q.push({0, {s, horse[s]}});
+  D[s][0] = 0;
+  bool vis[2][N]; F0R(i, 2) F0R(j, N) vis[i][j] = 0;
+  while(!q.empty()) {
+    auto [dis, P] = q.top();
+    auto [u, hasH] = P;
+    if(horse[u]) hasH = true;
+    q.pop();
+    if(vis[hasH][u]) continue;
+    vis[hasH][u] = 1;
+    trav(v, G[u]) {
+      ll cost = dis;
+      if(hasH) cost += v.s/2;
+      else cost += v.s;
+      if(D[v.f][hasH] > cost) {
+        D[v.f][hasH] = cost;
+        q.push({cost, {v.f, hasH}});
+      } 
+    }
+  }
+}
 
+const ll INF = 1e17;
+void solve() {
+  cin>>N>>M>>H;
+  vector<char> horse(N);
+  vector<vpi> G(N);
+  F0R(i, H) {
+    int x; cin>>x;
+    x--; horse[x] = 1;
+  }
+  F0R(i, M) {
+    int u, v, w; cin>>u>>v>>w;
+    u--, v--;
+    G[u].pb({v, w});
+    G[v].pb({u, w});
+  }
+
+  vector<array<ll, 2>> ans1(N, array<ll, 2>{INF, INF}), ans2(N, array<ll, 2>{INF, INF});
+  djikstra(0, G, ans1, horse);
+  djikstra(N-1, G, ans2, horse);
+  ll ans = INF;
+  dbg(ans1);
+  dbg(ans2);
+  F0R(i, N) {
+    ckmin(ans, max(ans1[i][0], ans2[i][0]));
+    ckmin(ans, max(ans1[i][0], ans2[i][1]));
+    ckmin(ans, max(ans1[i][1], ans2[i][0]));
+    ckmin(ans, max(ans1[i][1], ans2[i][1]));
+  }
+  if(ans == INF) ans = -1;
+  cout<<ans<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

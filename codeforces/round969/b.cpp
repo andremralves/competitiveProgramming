@@ -77,14 +77,29 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, M; cin>>N>>M;
+  vi A(N); F0R(i, N) cin>>A[i];
+  sort(all(A));
 
+  F0R(i, M) {
+    char c;
+    int l, r;
+    cin>>c>>l>>r;
+    if(c == '+') {
+      if(A[N-1] >= l && A[N-1] <= r) A[N-1]++;
+    } else {
+      if(A[N-1] >= l && A[N-1] <= r) A[N-1]--;
+    }
+    cout<<A[N-1]<<" ";
+  }
+  cout<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,7 +77,12 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+  string S; cin>>S;
+  F0R(i, sz(S)) {
+    if(S[i] != '.')
+      cout<<S[i];
+  }
+  cout<<nl;
 }
  
 int main() {

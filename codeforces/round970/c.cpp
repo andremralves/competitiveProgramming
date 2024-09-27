@@ -77,14 +77,27 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int L, R;
+  cin>>L>>R;
 
+  int inter = R-L+1;
+
+
+  int a = 0;
+  int inc = 1;
+  while(a < inter) {
+    a += inc;
+    inc++;
+  }
+  dbg(a, inter);
+  cout<<inc-1<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

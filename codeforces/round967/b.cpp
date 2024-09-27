@@ -76,15 +76,59 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
-void solve() {
-
+int count(vi A) {
+    int cnt = 1;
+    int op = 0;
+    while(cnt <= sz(A)) {
+        F0R(i, sz(A)) {
+            if(A[i] == cnt) cnt++;
+        }
+        op++;
+    }
+    return op;
 }
+
+void solve() {
+    int N; cin>>N;
+    vi ans(N);
+    if(N%2 == 0) {
+        cout<<-1<<nl;
+    } else {
+        int cnt = 1;
+        int l = 0, r = N-1;
+        F0R(i, N) {
+            if(i%2 == 0) {
+                ans[l++] = cnt++;
+            } else {
+                ans[r--] = cnt++;
+            }
+        }
+        trav(a, ans) cout<<a<<" ";
+        cout<<nl;
+    }
+}
+
+// 1 3 5 7 6 4 2
+//
+// a - 
+//
+// 5 4 1 2 3
+//
+
+// 2 1 3
+//
+//   1
+// 2 1 3
+//
+//   1
+// 2 1
+// 2 1 3
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

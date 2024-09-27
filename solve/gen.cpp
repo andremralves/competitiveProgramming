@@ -77,7 +77,12 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+  int N; N = 50;
+  cout<<N<<nl;
+  F0R(i, N) {
+    cout<<(rand()%100)+1<<" ";
+  }
+  cout<<nl;
 }
  
 int main() {
@@ -91,4 +96,5 @@ int main() {
 
   return 0;
 }
+
 

@@ -71,21 +71,56 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define dbg(x...)
 #endif
 
-
-const int MOD = 1000000007;
+const int MOD = 998244353;
 const char nl = '\n';
-const int MX = 100001; 
+const int MX = 2005; 
+
+const double EPS = 1e-9;
+
+int compare(ld a, ld b) {
+  if(a-b > EPS) return 1;
+  if(a-b < -EPS) return -1;
+  return 0;
+}
+
+int N, P;
+bool check(ld mid) {
+
+  ld res1 = 1;
+  F0R(i, N-1) {
+    res1 *= 1.0*P/100;
+  }
+
+  ld res2 = 1;
+  F0R(i, N) {
+    res2 *= mid/100;
+  }
+  return res2 <= res1;
+}
 
 void solve() {
+  cin>>N>>P;
 
+  ld lo = 0, hi = 100;
+  F0R(i, 1000) {
+    ld mid = (hi+lo)/2;
+    if(check(mid)) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
+  }
+  cout<<setprecision(15)<<fixed;
+  cout<<lo-P<<nl;
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
-  int T = 1;
-  //cin >> T;
-  while(T--) {
+  int t = 1;
+  cin>>t;
+  F0R(i, t) {
+    cout<<"Case #"<<i+1<<": ";
     solve();
   }
 

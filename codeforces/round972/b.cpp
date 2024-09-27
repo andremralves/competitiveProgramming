@@ -77,14 +77,39 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int N, M, Q;
+  cin>>N>>M>>Q;
 
+  vi A(M);
+  F0R(i, M) {
+    cin>>A[i];
+  }
+  A.pb(0);
+  A.pb(N+1);
+  sort(all(A));
+  F0R(i, Q) {
+    int x; cin >>x;
+    auto hi = ub(all(A), x);
+    auto lo = hi;
+    lo--;
+    if(*lo == x) {
+      cout<<0<<nl;
+    } else if(*lo == 0 || *hi == N+1) {
+      cout<<*hi-*lo-1<<nl;
+    } else {
+      cout<<abs((*hi)-(*lo))/2<<nl;
+    }
+  }
 }
+
+// 1 x 0 0 1 
+// 0 1 x 1 0
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,7 +77,24 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int M; cin>>M;
 
+  vi ans;
+  while(M) {
+    int cnt = 0;
+    int x = 1;
+    while(x*3 <= M) {
+      x *= 3;
+      cnt++;
+    }
+    M -= x;
+    ans.pb(cnt);
+  }
+  cout<<sz(ans)<<nl;
+  trav(a, ans) {
+    cout<<a<<" ";
+  }
+  cout<<nl;
 }
  
 int main() {

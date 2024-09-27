@@ -77,14 +77,23 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
+  int A, B;
+  cin>>A>>B;
 
+  if(B%2 && A > 0 && A%2 == 0) {
+    cout<<"YES"<<nl;
+  } else if(A%2 == 0 && B %2 == 0) {
+    cout<<"YES"<<nl;
+  } else {
+    cout<<"NO"<<nl;
+  }
 }
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

@@ -77,14 +77,20 @@ const char nl = '\n';
 const int MX = 100001; 
 
 void solve() {
-
+  int L, R; cin>>L>>R; 
+  int odd = 0;
+  FOR(i, L, R+1) {
+    if(i%2) odd++;
+  }
+  cout<<odd/2<<nl;
 }
+// 10 11 12
  
 int main() {
   ios_base::sync_with_stdio(0); cin.tie(0);
 
   int T = 1;
-  //cin >> T;
+  cin >> T;
   while(T--) {
     solve();
   }

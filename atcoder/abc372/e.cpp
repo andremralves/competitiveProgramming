@@ -76,7 +76,62 @@ const int MOD = 1000000007;
 const char nl = '\n';
 const int MX = 100001; 
 
+struct DSU {
+  vector<int> e;
+  DSU(int N) {
+    e = vector<int>(N, -1);
+  }
+  int get(int i) {
+    return (e[i]<0?i:e[i] = get(e[i]));
+  }
+  bool unite(int i, int j) {
+    i = get(i); j = get(j);
+    if(i == j) return false;
+    if(e[j] < e[i])
+      swap(i, j);
+    e[i] += e[j];
+    e[j] = i;
+    return true;
+  }
+};
+
 void solve() {
+  int N, Q; cin>>N>>Q;
+  vector<set<int>> res(N);
+  F0R(i, N) {
+    res[i].insert(i);
+  }
+
+  DSU dsu(N);
+  while(Q--) {
+    int op;cin>>op;
+    if(op == 1) {
+      int u, v; cin>>u>>v;
+      u--, v--;
+      u = dsu.get(u);
+      v = dsu.get(v);
+      trav(a, res[u]) {
+        res[v].insert(a);
+        if(sz(res[v]) > 10) {
+          res[v].erase(res[v].begin());
+        }
+      }
+      res[u] = res[v];
+      dsu.unite(u, v);
+    } else {
+      int u, k; cin>>u>>k;
+      u--;
+      u = dsu.get(u);
+      if(sz(res[u]) < k) {
+        cout<<-1<<nl;
+        continue;
+      }
+      auto it = res[u].rbegin();
+      for(int i=0; i<k-1;i++, it++);
+      cout<<*it+1<<nl;
+    }
+  }
+
 
 }
  
